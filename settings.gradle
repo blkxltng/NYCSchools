@@ -1,0 +1,2 @@
+rootProject.name='20200526-MauriceGaynor-NYCSchools'
+include ':app'
