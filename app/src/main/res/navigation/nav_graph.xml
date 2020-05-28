@@ -9,5 +9,25 @@
         android:id="@+id/mainFragment"
         android:name="com.blkxltng.a20200526_mauricegaynor_nycschools.ui.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.blkxltng.a20200526_mauricegaynor_nycschools.ui.details.DetailsFragment"
+        android:label="DetailsFragment">
+        <argument
+            android:name="info"
+            app:argType="com.blkxltng.a20200526_mauricegaynor_nycschools.models.SchoolInfo"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="scores"
+            app:argType="com.blkxltng.a20200526_mauricegaynor_nycschools.models.SatScores"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

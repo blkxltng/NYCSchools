@@ -1,6 +1,9 @@
 package com.blkxltng.a20200526_mauricegaynor_nycschools.models;
 
-public class SatScores {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SatScores implements Parcelable {
 
     public String dbn;
     public String school_name;
@@ -56,4 +59,41 @@ public class SatScores {
     public void setSat_writing_avg_score(String sat_writing_avg_score) {
         this.sat_writing_avg_score = sat_writing_avg_score;
     }
+
+    protected SatScores(Parcel in) {
+        dbn = in.readString();
+        school_name = in.readString();
+        num_of_sat_test_takers = in.readString();
+        sat_critical_reading_avg_score = in.readString();
+        sat_math_avg_score = in.readString();
+        sat_writing_avg_score = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(dbn);
+        dest.writeString(school_name);
+        dest.writeString(num_of_sat_test_takers);
+        dest.writeString(sat_critical_reading_avg_score);
+        dest.writeString(sat_math_avg_score);
+        dest.writeString(sat_writing_avg_score);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<SatScores> CREATOR = new Parcelable.Creator<SatScores>() {
+        @Override
+        public SatScores createFromParcel(Parcel in) {
+            return new SatScores(in);
+        }
+
+        @Override
+        public SatScores[] newArray(int size) {
+            return new SatScores[size];
+        }
+    };
 }

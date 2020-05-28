@@ -1,6 +1,9 @@
 package com.blkxltng.a20200526_mauricegaynor_nycschools.models;
 
-public class SchoolInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SchoolInfo implements Parcelable {
 
     public String dbn;
     public String school_name;
@@ -10,6 +13,7 @@ public class SchoolInfo {
     public String school_email;
     public String website;
     public String total_students;
+    public String neighborhood;
     public String borough;
 
     public String getDbn() {
@@ -76,6 +80,14 @@ public class SchoolInfo {
         this.total_students = total_students;
     }
 
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
     public String getBorough() {
         return borough;
     }
@@ -83,4 +95,49 @@ public class SchoolInfo {
     public void setBorough(String borough) {
         this.borough = borough;
     }
+
+    protected SchoolInfo(Parcel in) {
+        dbn = in.readString();
+        school_name = in.readString();
+        overview_paragraph = in.readString();
+        location = in.readString();
+        phone_number = in.readString();
+        school_email = in.readString();
+        website = in.readString();
+        total_students = in.readString();
+        neighborhood = in.readString();
+        borough = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(dbn);
+        dest.writeString(school_name);
+        dest.writeString(overview_paragraph);
+        dest.writeString(location);
+        dest.writeString(phone_number);
+        dest.writeString(school_email);
+        dest.writeString(website);
+        dest.writeString(total_students);
+        dest.writeString(neighborhood);
+        dest.writeString(borough);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<SchoolInfo> CREATOR = new Parcelable.Creator<SchoolInfo>() {
+        @Override
+        public SchoolInfo createFromParcel(Parcel in) {
+            return new SchoolInfo(in);
+        }
+
+        @Override
+        public SchoolInfo[] newArray(int size) {
+            return new SchoolInfo[size];
+        }
+    };
 }

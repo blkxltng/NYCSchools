@@ -1,5 +1,6 @@
 package com.blkxltng.a20200526_mauricegaynor_nycschools.network;
 
+import com.blkxltng.a20200526_mauricegaynor_nycschools.models.SatScores;
 import com.blkxltng.a20200526_mauricegaynor_nycschools.models.SchoolInfo;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class SchoolService {
         return schoolApi.getSchools();
     }
 
-    public Observable<List<SchoolService>> getScores(){
-        return schoolApi.getScores();
+    public Observable<List<SatScores>> getScores(String dbn){
+        return schoolApi.getScores(dbn);
     }
 }

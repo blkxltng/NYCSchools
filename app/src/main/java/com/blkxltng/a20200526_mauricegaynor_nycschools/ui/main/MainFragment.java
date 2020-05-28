@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.blkxltng.a20200526_mauricegaynor_nycschools.R;
 import com.blkxltng.a20200526_mauricegaynor_nycschools.databinding.FragmentMainBinding;
@@ -18,6 +19,7 @@ public class MainFragment extends Fragment {
 
     private FragmentMainBinding binding;
     private MainViewModel viewModel;
+    private MainEpoxyController mainEpoxyController;
 
     @Nullable
     @Override
@@ -36,5 +38,25 @@ public class MainFragment extends Fragment {
 
         binding.setMainViewModel(viewModel);
         binding.executePendingBindings();
+        setupObservers();
+    }
+
+    public void setupObservers() {
+        viewModel.schoolInfoList.observe(getViewLifecycleOwner(), schoolInfos -> {
+            mainEpoxyController = new MainEpoxyController();
+            mainEpoxyController.setData(schoolInfos);
+            binding.recyclerView.setController(mainEpoxyController);
+        });
+
+        viewModel.clickedSchool.observe(getViewLifecycleOwner(), info -> {
+            viewModel.getScores(info.dbn);
+        });
+
+        viewModel.schoolScores.observe(getViewLifecycleOwner(), schoolScores -> {
+            NavHostFragment.findNavController(this).navigate(
+                    MainFragmentDirections.actionMainFragmentToDetailsFragment()
+                            .setInfo(schoolScores.first)
+                            .setScores(schoolScores.second));
+        });
     }
 }

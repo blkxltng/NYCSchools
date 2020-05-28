@@ -6,14 +6,18 @@
 
     <data>
         <variable
-            name="schoolInfo"
-            type="com.blkxltng.a20200526_mauricegaynor_nycschools.models.SchoolInfo" />
+            name="schoolViewModel"
+            type="com.blkxltng.a20200526_mauricegaynor_nycschools.ui.main.SchoolViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="8dp"
+        android:clipToPadding="false"
+        android:onClick="@{() -> schoolViewModel.schoolClicked()}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,7 +30,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:textSize="24sp"
+                android:text="@{schoolViewModel.info.school_name}"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:textSize="20sp"
+                schoolLocation="@{schoolViewModel.info.location}"
+                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@id/name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,12 +56,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintTop_toBottomOf="@id/location"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="8dp">
 
                 <LinearLayout
                     android:id="@+id/numLayout"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -73,14 +82,15 @@
                         android:id="@+id/numStudents"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="4dp"
+                        android:text="@{schoolViewModel.info.total_students}"
                         tools:text="239" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/phoneLayout"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +108,8 @@
                         android:id="@+id/phoneNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="4dp"
+                        android:text="@{schoolViewModel.info.phone_number}"
                         tools:text="123-456-7890" />
 
                 </LinearLayout>
@@ -123,7 +134,9 @@
                         android:id="@+id/borough"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="4dp"
+                        android:text="@{schoolViewModel.info.neighborhood}"
+                        android:textSize="10sp"
                         tools:text="Manhattan" />
 
                 </LinearLayout>
