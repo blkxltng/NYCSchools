@@ -1,6 +1,7 @@
 package com.blkxltng.a20200526_mauricegaynor_nycschools.ui.main;
 
 import android.util.Pair;
+import android.view.Display;
 import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
@@ -34,15 +35,16 @@ public class MainViewModel extends ViewModel {
     }
 
     public MutableLiveData<Integer> progressVisibility = new MutableLiveData<>(View.GONE); // Used to set progressBar visibility
-    public MutableLiveData<List<SchoolViewModel>> schoolInfoList = new MutableLiveData<>();
-    public LiveEvent<SchoolInfo> clickedSchool = new LiveEvent<>();
-    public LiveEvent<Pair<SchoolInfo, SatScores>> schoolScores = new LiveEvent<>();
-    public LiveEvent<SchoolErrorCode> errorCode = new LiveEvent<>(); // Used when there is an error to send the user a message
+    public MutableLiveData<List<SchoolViewModel>> schoolInfoList = new MutableLiveData<>(); // Used to hold the list of schools
+    public LiveEvent<SchoolInfo> clickedSchool = new LiveEvent<>(); // Used when a user selects a school
+    public LiveEvent<Pair<SchoolInfo, SatScores>> schoolScores = new LiveEvent<>(); // Holds the selected school and SAT scores
+    public LiveEvent<SchoolErrorCode> errorCode = new LiveEvent<>(); // Used when there is an error to send the user a message in the fragment
 
     public void loadSchools() {
         Observable<List<SchoolInfo>> schools = schoolService.getSchools();
-        progressVisibility.postValue(View.VISIBLE);
+        progressVisibility.postValue(View.VISIBLE); // Show the progressBar
 
+        // Use RxJava3 to get the list of schools on the IO thread and the the UI thread
         schools
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,14 +52,18 @@ public class MainViewModel extends ViewModel {
                     @Override
                     public void onNext(@NonNull List<SchoolInfo> schoolInfos) {
                         List<SchoolViewModel> vmList = new ArrayList<>();
+                        // "Convert" the list of schools to a list of school viewModels so we an use
+                        // them with the Epoxy controller
                         for(SchoolInfo info : schoolInfos) {
                             vmList.add(new SchoolViewModel(info, MainViewModel.this));
                         }
+                        // Update the list
                         schoolInfoList.postValue(vmList);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        // Display an error if one occurs
                         progressVisibility.postValue(View.GONE);
                         Timber.d(e);
                         errorCode.postValue(SchoolErrorCode.ERROR_SCHOOL);
@@ -74,6 +80,7 @@ public class MainViewModel extends ViewModel {
         Observable<List<SatScores>> scores = schoolService.getScores(dbn);
         progressVisibility.postValue(View.VISIBLE);
 
+        // Use RxJava3 to get the selected school's scores on the IO thread and the the UI thread
         scores
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
