@@ -38,6 +38,7 @@ public class MainViewModel extends ViewModel {
     public MutableLiveData<List<SchoolViewModel>> schoolInfoList = new MutableLiveData<>();
     public LiveEvent<SchoolInfo> clickedSchool = new LiveEvent<>();
     public LiveEvent<Pair<SchoolInfo, SatScores>> schoolScores = new LiveEvent<>();
+    public LiveEvent<SchoolErrorCode> errorCode = new LiveEvent<>(); // Used when there is an error to send the user a message
 
     private void loadSchools() {
         Observable<List<SchoolInfo>> schools = schoolService.getSchools();
@@ -51,7 +52,6 @@ public class MainViewModel extends ViewModel {
                     public void onNext(@NonNull List<SchoolInfo> schoolInfos) {
                         List<SchoolViewModel> vmList = new ArrayList<>();
                         for(SchoolInfo info : schoolInfos) {
-                            Timber.d("School DBN: " + info.dbn + "\nSchool Name: " + info.school_name);
                             vmList.add(new SchoolViewModel(info, MainViewModel.this));
                         }
                         schoolInfoList.postValue(vmList);
@@ -79,9 +79,7 @@ public class MainViewModel extends ViewModel {
                 .subscribe(new DisposableObserver<List<SatScores>>() {
                     @Override
                     public void onNext(@NonNull List<SatScores> scores) {
-                        Timber.d("School Info: " + clickedSchool.getValue().getDbn());
                         if(scores.size() > 0) {
-                            Timber.d("Scores are: " + scores.get(0));
                             schoolScores.postValue(new Pair(clickedSchool.getValue(), scores.get(0)));
                         } else {
                             // No SAT scores could be found for this school
