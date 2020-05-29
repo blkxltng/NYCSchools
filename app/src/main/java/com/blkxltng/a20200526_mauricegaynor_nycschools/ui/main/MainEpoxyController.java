@@ -10,8 +10,9 @@ public class MainEpoxyController extends TypedEpoxyController<List<SchoolViewMod
     @Override
     protected void buildModels(List<SchoolViewModel> data) {
         for(SchoolViewModel item : data) {
+            // Assign each school to a card view and add it to the recyclerView
             new ItemSchoolCardBindingModel_()
-                    .id(item.info.dbn)
+                    .id(item.info.getDbn())
                     .schoolViewModel(item)
                     .addTo(this);
         }

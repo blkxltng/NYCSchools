@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
+// The providers and injector we'll need to make dagger work properly
 @Singleton
 @Component(modules = { SchoolModule.class })
 public interface SchoolApiFactory {

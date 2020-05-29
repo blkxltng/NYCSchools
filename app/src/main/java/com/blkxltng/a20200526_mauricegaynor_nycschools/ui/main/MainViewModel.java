@@ -31,7 +31,6 @@ public class MainViewModel extends ViewModel {
 
     public MainViewModel() {
         DaggerSchoolApiFactory.create().inject(this);
-        loadSchools();
     }
 
     public MutableLiveData<Integer> progressVisibility = new MutableLiveData<>(View.GONE); // Used to set progressBar visibility
@@ -40,7 +39,7 @@ public class MainViewModel extends ViewModel {
     public LiveEvent<Pair<SchoolInfo, SatScores>> schoolScores = new LiveEvent<>();
     public LiveEvent<SchoolErrorCode> errorCode = new LiveEvent<>(); // Used when there is an error to send the user a message
 
-    private void loadSchools() {
+    public void loadSchools() {
         Observable<List<SchoolInfo>> schools = schoolService.getSchools();
         progressVisibility.postValue(View.VISIBLE);
 
@@ -60,6 +59,8 @@ public class MainViewModel extends ViewModel {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         progressVisibility.postValue(View.GONE);
+                        Timber.d(e);
+                        errorCode.postValue(SchoolErrorCode.ERROR_SCHOOL);
                     }
 
                     @Override
@@ -80,17 +81,20 @@ public class MainViewModel extends ViewModel {
                     @Override
                     public void onNext(@NonNull List<SatScores> scores) {
                         if(scores.size() > 0) {
-                            schoolScores.postValue(new Pair(clickedSchool.getValue(), scores.get(0)));
+                            // Return the school info and SAT scores
+                            schoolScores.postValue(new Pair<>(clickedSchool.getValue(), scores.get(0)));
                         } else {
-                            // No SAT scores could be found for this school
-                            schoolScores.postValue(new Pair(clickedSchool.getValue(), null));
+                            // No SAT scores could be found for this school. Just return the school info
+                            schoolScores.postValue(new Pair<>(clickedSchool.getValue(), null));
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        // Display an error of something goes wrong when obtaining SAT scores
                         Timber.d(e);
                         progressVisibility.postValue(View.GONE);
+                        errorCode.postValue(SchoolErrorCode.ERROR_SCORES);
                     }
 
                     @Override

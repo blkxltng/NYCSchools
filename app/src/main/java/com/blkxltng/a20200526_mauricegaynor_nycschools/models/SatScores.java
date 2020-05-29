@@ -3,14 +3,15 @@ package com.blkxltng.a20200526_mauricegaynor_nycschools.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// Model we'll use for the SAT scores
 public class SatScores implements Parcelable {
 
-    public String dbn;
-    public String school_name;
-    public String num_of_sat_test_takers;
-    public String sat_critical_reading_avg_score;
-    public String sat_math_avg_score;
-    public String sat_writing_avg_score;
+    private String dbn;
+    private String school_name;
+    private String num_of_sat_test_takers;
+    private String sat_critical_reading_avg_score;
+    private String sat_math_avg_score;
+    private String sat_writing_avg_score;
 
     public String getDbn() {
         return dbn;

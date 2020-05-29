@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setupNavigation();
     }
 
+    // Set up the navigation component
     private void setupNavigation() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController);

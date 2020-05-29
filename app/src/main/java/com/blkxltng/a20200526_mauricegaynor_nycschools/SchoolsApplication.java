@@ -9,6 +9,7 @@ public class SchoolsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // Used so that we can use Timber freely throughout the app
         Timber.plant(new Timber.DebugTree());
     }
 }

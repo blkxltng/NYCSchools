@@ -36,62 +36,78 @@ public class DetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if(getArguments() != null) {
+            // Grab the school info and scores that were sent from the previous fragment and assign
+            // them to this fragment
             SchoolInfo info = DetailsFragmentArgs.fromBundle(getArguments()).getInfo();
             SatScores scores = DetailsFragmentArgs.fromBundle(getArguments()).getScores();
             binding.setSchoolInfo(info);
             binding.setSatScores(scores);
             binding.executePendingBindings();
 
-            binding.phoneNumber.setOnClickListener(v -> {
+            // Shows a dialog asking if hte user would like to call
+            binding.phoneNumberValue.setOnClickListener(v -> {
                 createDialog(true, info);
             });
 
-            binding.email.setOnClickListener(v -> {
+            // Shows a dialog asking if the user would like to email
+            binding.emailValue.setOnClickListener(v -> {
                 createDialog(false, info);
             });
 
-            binding.website.setOnClickListener(v -> {
+            // Creates a web intent when the user clicks on the website
+            binding.websiteValue.setOnClickListener(v -> {
                 //Load website
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                if(info.website.startsWith("http://") || info.website.startsWith("https://")) {
-                    i.setData(Uri.parse(info.website));
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                if(info.getWebsite().startsWith("http://") || info.getWebsite().startsWith("https://")) {
+                    intent.setData(Uri.parse(info.getWebsite()));
                 } else {
-                    i.setData(Uri.parse("http://" + info.website));
+                    intent.setData(Uri.parse("http://" + info.getWebsite()));
                 }
-                startActivity(i);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), R.string.error_no_app_found, Toast.LENGTH_SHORT).show();
+                }
             });
 
         } else {
             // Error loading school info
+            Toast.makeText(getContext(), R.string.error_generic, Toast.LENGTH_LONG).show();
         }
 
     }
 
+    // Creates a dialog that asks the user if they would like to call or email the school depending
+    // on which they click.
     public void createDialog(Boolean isPhone, SchoolInfo info) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String message;
-        Intent intent;
-        if (isPhone) {
-            message = "Would you like to call " + info.school_name + "?";
-            intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.phoneNumber.getText().toString()));
-        } else {
-            message = "Would you like to email " + info.school_name + "?";
-            intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-            intent.putExtra(Intent.EXTRA_EMAIL, info.school_email);
-        }
-        builder.setMessage(message);
-        builder.setPositiveButton("yes", (dialog, id) -> {
-            // User clicked OK button
-            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivity(intent);
+        if(getActivity() != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            String message;
+            Intent intent;
+            if (isPhone) {
+                // Create a dial intent
+                message = getString(R.string.make_a_call, info.getSchool_name());
+                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + info.getPhone_number()));
             } else {
-                Toast.makeText(getContext(), "No app was found for your request.", Toast.LENGTH_SHORT).show();
+                // Create an email intent
+                message = getString(R.string.send_an_email, info.getSchool_name());
+                intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_EMAIL, info.getSchool_email());
             }
-        });
-        builder.setNegativeButton("cancel", (dialog, id) -> {
-            // User cancelled the dialog
-        });
-        builder.create().show();
+            builder.setMessage(message);
+            builder.setPositiveButton(R.string.yes, (dialog, id) -> {
+                // User clicked OK button
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), R.string.error_no_app_found, Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+                // User cancelled the dialog
+            });
+            builder.create().show();
+        }
     }
 }

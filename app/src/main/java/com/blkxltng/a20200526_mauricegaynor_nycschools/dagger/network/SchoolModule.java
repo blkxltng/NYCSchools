@@ -11,6 +11,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 import static com.blkxltng.a20200526_mauricegaynor_nycschools.utils.ConstantUtils.NYC_API;
 
+// The module we'll use to tell dagger how to create and provide the retrofit object we'll use
 @Module
 public class SchoolModule {
     @Provides

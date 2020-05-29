@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+// Retrofit interface we'll use to get the info and scores for the schools
 public interface SchoolApi {
 
     @GET("s3k6-pzi2.json")

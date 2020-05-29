@@ -3,18 +3,19 @@ package com.blkxltng.a20200526_mauricegaynor_nycschools.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// Model we'll use for the school info
 public class SchoolInfo implements Parcelable {
 
-    public String dbn;
-    public String school_name;
-    public String overview_paragraph;
-    public String location;
-    public String phone_number;
-    public String school_email;
-    public String website;
-    public String total_students;
-    public String neighborhood;
-    public String borough;
+    private String dbn;
+    private String school_name;
+    private String overview_paragraph;
+    private String location;
+    private String phone_number;
+    private String school_email;
+    private String website;
+    private String total_students;
+    private String neighborhood;
+    private String borough;
 
     public String getDbn() {
         return dbn;

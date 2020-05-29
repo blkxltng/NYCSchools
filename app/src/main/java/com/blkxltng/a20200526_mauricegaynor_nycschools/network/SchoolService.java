@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
 
+// Class that will make use of our retrofit interface
 public class SchoolService {
 
     private SchoolApi schoolApi;

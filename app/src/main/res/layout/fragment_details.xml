@@ -56,38 +56,71 @@
                     tools:text="123 Nowhere Lane, NY 12345"/>
 
                 <TextView
-                    android:id="@+id/phoneNumber"
-                    android:layout_width="match_parent"
+                    android:id="@+id/phoneNumberLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    schoolPhone="@{schoolInfo.phone_number}"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/phone_number_label"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/location"
+                    app:layout_constraintTop_toBottomOf="@id/location" />
+
+                <TextView
+                    android:id="@+id/phoneNumberValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    schoolPhone="@{schoolInfo.phone_number}"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/phoneNumberLabel"
+                    app:layout_constraintTop_toTopOf="@id/phoneNumberLabel"
+                    app:layout_constraintBottom_toBottomOf="@id/phoneNumberLabel"
                     tools:text="123-456-7890" />
 
                 <TextView
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
+                    android:id="@+id/emailLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:text="@string/email_label"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phoneNumberLabel" />
+
+                <TextView
+                    android:id="@+id/emailValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="8dp"
                     android:textSize="18sp"
                     schoolEmail="@{schoolInfo.school_email}"
-                    app:layout_constraintTop_toBottomOf="@id/phoneNumber"
+                    app:layout_constraintStart_toEndOf="@id/emailLabel"
+                    app:layout_constraintTop_toTopOf="@id/emailLabel"
+                    app:layout_constraintBottom_toBottomOf="@id/emailLabel"
                     tools:text="myhighschool@schoolmail.edu"/>
 
                 <TextView
-                    android:id="@+id/website"
+                    android:id="@+id/websiteLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/website_label"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/emailLabel"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/websiteValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:textSize="18sp"
                     schoolWebsite="@{schoolInfo.website}"
-                    app:layout_constraintTop_toBottomOf="@id/email"
+                    app:layout_constraintTop_toBottomOf="@id/websiteLabel"
                     tools:text="www.besthighschool.edu"/>
 
                 <TextView
@@ -95,9 +128,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:textSize="18sp"
-                    android:text="Number of Students: "
-                    app:layout_constraintTop_toBottomOf="@id/website"
+                    android:text="@string/num_students_label"
+                    app:layout_constraintTop_toBottomOf="@id/websiteValue"
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
@@ -107,7 +141,8 @@
                     android:layout_marginStart="4dp"
                     android:textSize="18sp"
                     android:text="@{schoolInfo.total_students}"
-                    app:layout_constraintTop_toBottomOf="@id/website"
+                    app:layout_constraintTop_toTopOf="@id/numStudentsLabel"
+                    app:layout_constraintBottom_toBottomOf="@id/numStudentsLabel"
                     app:layout_constraintStart_toEndOf="@id/numStudentsLabel"
                     tools:text="999"/>
 
@@ -118,7 +153,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="School Overview:"
+                    android:text="@string/school_overview_label"
                     schoolOverviewVisibility="@{schoolInfo.overview_paragraph}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="2012 SAT Scores"
+                    android:text="@string/_2012_sat_scores_label"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,7 +197,7 @@
                     android:id="@+id/criticalHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Critical Reading"
+                    android:text="@string/critical_reading_label"
                     app:layout_constraintEnd_toStartOf="@+id/mathHeader"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -182,7 +217,7 @@
                     android:id="@+id/mathHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Math"
+                    android:text="@string/math_label"
                     app:layout_constraintEnd_toStartOf="@+id/writinglHeader"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/criticalHeader"
@@ -202,7 +237,7 @@
                     android:id="@+id/writinglHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Writing"
+                    android:text="@string/writing_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/mathHeader"

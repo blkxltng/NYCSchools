@@ -62,11 +62,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="8dp">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/numLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/phoneLayout"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -74,35 +73,45 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/numStudentsIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_people" />
+                        android:src="@drawable/ic_people"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
                         android:id="@+id/numStudents"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="@{schoolViewModel.info.total_students}"
+                        app:layout_constraintStart_toEndOf="@id/numStudentsIcon"
+                        app:layout_constraintTop_toTopOf="@id/numStudentsIcon"
+                        app:layout_constraintBottom_toBottomOf="@id/numStudentsIcon"
                         tools:text="239" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/phoneLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/boroLayout"
+                    app:layout_constraintEnd_toStartOf="@+id/neighborhoodLayout"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/numLayout"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/phoneNumberIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_phone_call" />
+                        android:src="@drawable/ic_phone_call"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
                         android:id="@+id/phoneNumber"
@@ -110,15 +119,17 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:text="@{schoolViewModel.info.phone_number}"
+                        app:layout_constraintStart_toEndOf="@id/phoneNumberIcon"
+                        app:layout_constraintTop_toTopOf="@id/phoneNumberIcon"
+                        app:layout_constraintBottom_toBottomOf="@id/phoneNumberIcon"
                         tools:text="123-456-7890" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/boroLayout"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/neighborhoodLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -126,20 +137,27 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/neighborhoodIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_city" />
+                        android:src="@drawable/ic_city"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
-                        android:id="@+id/borough"
+                        android:id="@+id/neighborhood"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="@{schoolViewModel.info.neighborhood}"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/neighborhoodIcon"
+                        app:layout_constraintTop_toTopOf="@id/neighborhoodIcon"
+                        app:layout_constraintBottom_toBottomOf="@id/neighborhoodIcon"
                         tools:text="Manhattan" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
