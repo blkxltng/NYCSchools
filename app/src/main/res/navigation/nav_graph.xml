@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.blkxltng.a20200526_mauricegaynor_nycschools.ui.main.MainFragment"
-        android:label="MainFragment"
+        android:label="NYC High Schools"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
@@ -18,16 +18,15 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.blkxltng.a20200526_mauricegaynor_nycschools.ui.details.DetailsFragment"
-        android:label="DetailsFragment">
+        android:label="School Details">
         <argument
             android:name="info"
             app:argType="com.blkxltng.a20200526_mauricegaynor_nycschools.models.SchoolInfo"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="false" />
         <argument
             android:name="scores"
+            android:defaultValue="@null"
             app:argType="com.blkxltng.a20200526_mauricegaynor_nycschools.models.SatScores"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
 </navigation>
