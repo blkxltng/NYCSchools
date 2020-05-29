@@ -69,8 +69,7 @@ public class MainFragment extends Fragment {
         viewModel.schoolScores.observe(getViewLifecycleOwner(), schoolScores -> {
             // Once the scores have been retrieved, show all the info in the Details Fragment
             NavHostFragment.findNavController(this).navigate(
-                    MainFragmentDirections.actionMainFragmentToDetailsFragment()
-                            .setInfo(schoolScores.first)
+                    MainFragmentDirections.actionMainFragmentToDetailsFragment(schoolScores.first)
                             .setScores(schoolScores.second));
         });
 
