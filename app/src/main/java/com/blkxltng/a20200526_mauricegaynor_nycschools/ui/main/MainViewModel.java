@@ -31,6 +31,7 @@ public class MainViewModel extends ViewModel {
     public SchoolService schoolService;
 
     public MainViewModel() {
+        // Used Dagger to inject the SchoolService into the MainViewModel
         DaggerSchoolApiFactory.create().inject(this);
     }
 
