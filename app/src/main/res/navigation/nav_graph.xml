@@ -18,7 +18,8 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.blkxltng.a20200526_mauricegaynor_nycschools.ui.details.DetailsFragment"
-        android:label="School Details">
+        android:label="School Details"
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="info"
             app:argType="com.blkxltng.a20200526_mauricegaynor_nycschools.models.SchoolInfo"
