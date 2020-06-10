@@ -110,6 +110,10 @@ public class SchoolInfo implements Parcelable {
         borough = in.readString();
     }
 
+    public SchoolInfo() {
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
